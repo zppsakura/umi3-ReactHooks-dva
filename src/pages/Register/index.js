@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './index.less';
 import { Form, Input, Button, Checkbox } from 'antd';
+import { useSelector } from 'react-redux'
+
 
 const layout = {
     labelCol: { span: 8 },
@@ -14,6 +16,8 @@ const Index = () => {
     const onFinish = (value) => {
       console.log('Success:', value);
     };
+    const test = useSelector(state => state.register.test)
+    console.log('test222', test)
   
     return (
       <Form
