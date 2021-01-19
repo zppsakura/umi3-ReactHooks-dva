@@ -5,8 +5,6 @@ export default defineConfig({
     nodeModulesTransform: {
         type: 'none',
     },
-    dva: {},
-    antd: {},
     routes: pageRoutes,
     fastRefresh: {},
     theme: {

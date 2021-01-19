@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.less';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { useSelector } from 'react-redux'
 
 
