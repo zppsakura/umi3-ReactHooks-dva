@@ -17,7 +17,7 @@ const Index = () => {
       console.log('Success:', value);
     };
     const test = useSelector(state => state.register.test)
-    console.log('test222', test)
+    console.log('test', test)
   
     return (
       <Form
