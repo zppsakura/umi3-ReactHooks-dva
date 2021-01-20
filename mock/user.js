@@ -1,14 +1,8 @@
-import Mock from 'mockjs'
+import mockjs from 'mockjs';
 
 export default {
-    'GET /api/users/register': (req, res) => { 
-        res.send({
-            status: 'ok',
-            currentAuthority: 'user',
-          });
-     },
-
-     'GET /api/users': Mock.mock({
-        'list|100': [{ name: '@city', 'value|1-100': 50, 'type|0-2': 1 }],
-      }),
-  };
+  // 使用 mockjs 等三方库
+  'GET /api/users': mockjs.mock({
+    'list|100': [{ name: '@city', 'value|1-100': 50, 'type|0-2': 1 }],
+  }),
+};
