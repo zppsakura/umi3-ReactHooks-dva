@@ -20,8 +20,9 @@
     "src/**/*",
     "config/**/*",
     ".umirc.ts.",
-    "typings.d.ts"
-, "config"  ],
+    "typings.d.ts",
+    "config"
+  ],
   "exclude": [
     "node_modules",
     "lib",

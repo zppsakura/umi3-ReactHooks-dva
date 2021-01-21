@@ -1,16 +1,68 @@
 import React from 'react';
+import styles from './index.less';
+import { Form, Input, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
-function index () {
-    const {test, test1, test2} = useSelector(state => state.register)
-    const dispatch = useDispatch()
-    return (
-        <>
-        <div onClick = {() => dispatch({type: 'register/register'})}>{test}</div>
-        <div onClick = {() => dispatch({type: 'register/query'})}>{test1}</div>
-        <div>{test2}</div>
-        </>
-    )
-}
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 8 },
+};
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
 
-export default index; 
+const Index = () => {
+  const dispatch = useDispatch();
+
+  const onFinish = (value) => {
+    dispatch({ type: 'user/login', payload: { ...value } });
+  };
+  return (
+    <div className={styles.loginContent}>
+      <Form
+        {...layout}
+        name="basic"
+        onFinish={onFinish}
+        className={styles.login}
+      >
+        <Form.Item
+          label="姓名"
+          name="name"
+          rules={[{ required: true, message: '请填写姓名!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="电话"
+          name="phone"
+          rules={[
+            { required: true, message: '请填写电话!' },
+            { pattern: /^1\d{10}$/, message: '电话格式错误!' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="密码"
+          name="password"
+          rules={[
+            { required: true, message: '请填写密码!' },
+            { pattern: /^[a-zA-Z_0-9]{6,32}$/, message: '密码格式错误!' },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit">
+            登录
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
+
+export default Index;
