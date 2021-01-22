@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import styles from './index.less';
 import { List, Input } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const { Search } = Input;
 
 const Index = () => {
   const dispatch = useDispatch();
   const [isEdit, handleChangeIsEdit] = useState(false);
-  const onFinish = (value) => {
-    dispatch({ type: 'user/login', payload: { ...value } });
-  };
   const data = [
     'Racing car sprays burning fuel into crowd.',
     'Japanese princess to wed commoner.',
@@ -18,11 +15,11 @@ const Index = () => {
     'Man charged over missing wedding girl.',
     'Los Angeles battles huge wildfires.',
   ];
-
+  console.log(123)    
   return (
     <div className={styles.listContent}>
       <h1>ToDo List</h1>
-      <Search
+        <Search
         placeholder="请输入待办事项"
         allowClear
         enterButton="添加"
