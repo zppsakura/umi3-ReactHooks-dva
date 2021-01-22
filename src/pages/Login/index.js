@@ -4,11 +4,11 @@ import { Form, Input, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 8 },
+  labelCol: { span: 6 },
+  wrapperCol: { span: 6 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { offset: 6, span: 12 },
 };
 
 const Index = () => {
