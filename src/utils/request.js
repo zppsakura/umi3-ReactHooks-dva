@@ -46,4 +46,23 @@ const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
 });
 
+// 统一请求拦截
+request.interceptors.request.use(async(url, options) => {
+    return {
+        url: `http://127.0.0.1:7001${url}`,
+        options: {
+            ...options,
+            headers: {
+                authorization: 'Bearer',
+            },
+        }
+    };
+});
+
+// 统一响应拦截 (可以配置路由拦截)
+// request.interceptors.response.use(async(response) => {
+//     console.log('返回了');
+//   return response;
+// });
+
 export default request;

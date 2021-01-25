@@ -1,4 +1,4 @@
-import { register, query } from '../services/User';
+import { register, login } from '../services/User';
 import { Message } from 'antd';
 import { history } from 'umi';
 
@@ -27,7 +27,7 @@ export default {
     },
   },
   effects: {
-    *register({ payload }, { put, call }) {
+    *register({ payload }, { call }) {
       const params = { ...payload };
       const response = yield call(register, params);
       if (response.code === 0) {
@@ -38,9 +38,15 @@ export default {
       }
     },
 
-    *query(_, { put, call }) {
-      console.log('query');
-      const response = yield call(query);
+    *login({ payload }, { call }) {
+        const params = { ...payload };
+        const response = yield call(login, params);
+        if (response.code === 0) {
+          Message.success(response.msg);
+          history.push('/list');
+        } else {
+          Message.error(response.msg);
+        }
     },
   },
 };

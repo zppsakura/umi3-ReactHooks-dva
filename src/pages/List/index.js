@@ -14,8 +14,7 @@ const Index = () => {
     'Australian walks 100km after outback crash.',
     'Man charged over missing wedding girl.',
     'Los Angeles battles huge wildfires.',
-  ];
-  console.log(123)    
+  ];  
   return (
     <div className={styles.listContent}>
       <h1>ToDo List</h1>
@@ -37,7 +36,7 @@ const Index = () => {
           <List.Item>
             {isEdit ? (
               <div className={styles.editBox}>
-                <Input value={item}></Input>
+                <Input value={item} />
                 <div className={styles.opt}>
                   <span
                     className={styles.delete}

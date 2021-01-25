@@ -9,7 +9,7 @@
     "sourceMap": true,
     "baseUrl": "./",
     "strict": true,
-    "paths": {
+    "paths": { 
       "@/*": ["src/*"],
       "@@/*": ["src/.umi/*"]
     },

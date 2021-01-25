@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.less';
 import { Form, Input, Button } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const layout = {
   labelCol: { span: 6 },
