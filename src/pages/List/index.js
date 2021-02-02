@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.less';
 import { List, Input } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const { Search } = Input;
 
 const Index = () => {
   const dispatch = useDispatch();
   const [isEdit, handleChangeIsEdit] = useState(false);
-  const data = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
-  ];  
+
+  useEffect(() => {
+    const query = () =>  dispatch({ type: 'list/getLists' });
+    return query;
+  }, []);
+
+  const todoLists = useSelector(state => state.list.todoLists);
+  const lists = [];
+  if (todoLists && todoLists.length > 0) {
+    todoLists.map(item => {
+        lists.push(item.title);
+        return lists;
+    });
+  }
+  
   return (
     <div className={styles.listContent}>
       <h1>ToDo List</h1>
@@ -31,9 +39,10 @@ const Index = () => {
         header={<div>Header</div>}
         footer={<div>Footer</div>}
         bordered
-        dataSource={data}
+        dataSource={lists}
         renderItem={(item) => (
           <List.Item>
+            
             {isEdit ? (
               <div className={styles.editBox}>
                 <Input value={item} />
@@ -62,7 +71,10 @@ const Index = () => {
                 <span className={styles.opt}>
                   <span
                     className={styles.delete}
-                    onClick={() => dispatch({ type: 'list/delete' })}
+                    onClick={() => dispatch({ 
+                        type: 'list/delete', 
+                        payload: { title: item }  
+                    })}
                   >
                     删除
                   </span>
