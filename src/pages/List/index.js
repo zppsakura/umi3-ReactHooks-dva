@@ -22,7 +22,11 @@ const Index = () => {
         return lists;
     });
   }
-  
+
+  const onSearch = (value) => {
+    dispatch({ type: 'list/listAdd', payload: { title: value } });
+  };
+      
   return (
     <div className={styles.listContent}>
       <h1>ToDo List</h1>
@@ -32,7 +36,7 @@ const Index = () => {
         enterButton="添加"
         size="large"
         style={{ marginBottom: 20 }}
-        // onSearch={onSearch}
+        onSearch={onSearch}
       />
       <List
         size="large"
@@ -42,7 +46,6 @@ const Index = () => {
         dataSource={lists}
         renderItem={(item) => (
           <List.Item>
-            
             {isEdit ? (
               <div className={styles.editBox}>
                 <Input value={item} />
@@ -81,7 +84,7 @@ const Index = () => {
                   <span
                     className={styles.edit}
                     onClick={() => {
-                      handleChangeIsEdit(true);
+                      handleChangeIsEdit(item, true);
                     }}
                   >
                     编辑

@@ -1,4 +1,4 @@
-import { getLists, listDelete } from '../services/List';
+import { getLists, listDelete, listAdd } from '../services/List';
 import { Message } from 'antd';
 import { history } from 'umi';
 
@@ -47,10 +47,21 @@ export default {
         history.push('/login');
       }
     },
+    *listAdd({ payload }, { call, put }) {
+        const response = yield call(listAdd, payload);
+        if (response.code === 0) {
+            Message.success(response.msg);
+            yield put({
+                type: 'getLists',
+            });
+            return;
+        }
+        Message.error(response.msg);
+    },
     *delete({ payload }, { call, put }) {
         const response = yield call(listDelete, payload);
         if (response.code === 0) {
-            Message.success('删除成功！');
+            Message.success(response.msg);
             yield put({
                 type: 'getLists',
             });

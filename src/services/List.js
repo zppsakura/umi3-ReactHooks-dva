@@ -5,6 +5,14 @@ export async function getLists() {
         method: 'GET',
     });
 }
+
+export async function listAdd(params) {
+    return request('/listAdd', {
+        method: 'GET',
+        params,
+    });
+}
+
 export async function listDelete(params) {
     return request('/listDelete', {
         method: 'GET',
