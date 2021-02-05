@@ -10,8 +10,7 @@ const Index = () => {
   const [isEdit, handleChangeIsEdit] = useState(false);
 
   useEffect(() => {
-    const query = () =>  dispatch({ type: 'list/getLists' });
-    return query;
+    dispatch({ type: 'list/getLists' });
   }, []);
 
   const todoLists = useSelector(state => state.list.todoLists);
