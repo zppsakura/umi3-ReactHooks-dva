@@ -43,7 +43,7 @@ export default {
         const response = yield call(login, params);
         if (response.code === 0) {
           Message.success(response.msg);
-          sessionStorage.setItem('userInfo', response.data.phone);
+          sessionStorage.setItem('token', response.data);
           history.push('/list');
         } else {
           Message.error(response.msg);

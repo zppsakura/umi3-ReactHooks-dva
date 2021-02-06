@@ -49,7 +49,7 @@ const request = extend({
 // 统一请求拦截
 request.interceptors.request.use(async(url, options) => {
     return {
-        url: `http://127.0.0.1:7001${url}`,
+        url: `http://127.0.0.1:7002${url}`,
         options: {
             ...options,
             headers: {

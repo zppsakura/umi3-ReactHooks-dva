@@ -26,7 +26,7 @@ export default {
   },
   effects: {
     *getLists(_, { call, put }) {
-      const user = sessionStorage.getItem('userInfo');
+      const user = sessionStorage.getItem('token');
       if (user) {
         const response = yield call(getLists);
         switch(response.code) {

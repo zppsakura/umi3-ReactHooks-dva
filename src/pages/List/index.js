@@ -21,7 +21,6 @@ const Index = () => {
         return lists;
     });
   }
-
   const onSearch = (value) => {
     dispatch({ type: 'list/listAdd', payload: { title: value } });
   };
