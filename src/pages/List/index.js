@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from './index.less';
 import { List, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,6 @@ const { Search } = Input;
 
 const Index = () => {
   const dispatch = useDispatch();
-  const [isEdit, handleChangeIsEdit] = useState(false);
 
   useEffect(() => {
     dispatch({ type: 'list/getLists' });
@@ -17,7 +16,9 @@ const Index = () => {
   const lists = [];
   if (todoLists && todoLists.length > 0) {
     todoLists.map(item => {
-        lists.push(item.title);
+        lists.push({
+            title: item.title
+        });
         return lists;
     });
   }
@@ -44,52 +45,20 @@ const Index = () => {
         dataSource={lists}
         renderItem={(item) => (
           <List.Item>
-            {isEdit ? (
-              <div className={styles.editBox}>
-                <Input value={item} />
-                <div className={styles.opt}>
-                  <span
-                    className={styles.delete}
-                    onClick={() => {
-                      handleChangeIsEdit(false);
-                    }}
-                  >
-                    取消
-                  </span>
-                  <span
-                    className={styles.edit}
-                    onClick={() => {
-                      handleChangeIsEdit(false);
-                    }}
-                  >
-                    确定
-                  </span>
-                </div>
-              </div>
-            ) : (
               <div style={{ width: '100%' }}>
-                {item}
+                {item.title}
                 <span className={styles.opt}>
                   <span
                     className={styles.delete}
                     onClick={() => dispatch({ 
                         type: 'list/delete', 
-                        payload: { title: item }  
+                        payload: { title: item.title }  
                     })}
                   >
                     删除
                   </span>
-                  <span
-                    className={styles.edit}
-                    onClick={() => {
-                      handleChangeIsEdit(item, true);
-                    }}
-                  >
-                    编辑
-                  </span>
                 </span>
               </div>
-            )}
           </List.Item>
         )}
       />
