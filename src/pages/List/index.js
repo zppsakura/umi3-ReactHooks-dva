@@ -118,6 +118,7 @@ const Index = () => {
                   </span>
                 </span>
               </div>
+            )}
           </List.Item>
         )}
       />
