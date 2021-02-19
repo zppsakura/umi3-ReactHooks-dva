@@ -116,17 +116,8 @@ const Index = () => {
                   >
                     删除
                   </span>
-                  <span
-                    className={styles.edit}
-                    onClick={() => {
-                      handleChangeIsEdit(item, true);
-                    }}
-                  >
-                    编辑
-                  </span>
                 </span>
               </div>
-            )}
           </List.Item>
         )}
       />
