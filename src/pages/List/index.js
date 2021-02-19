@@ -8,6 +8,7 @@ const { Search } = Input;
 const Index = () => {
   const dispatch = useDispatch();
   const [todoLists, getLists] = useState([]); // state中的值不能直接更改
+  const [isLoading, changeLoading] = useState(true);
 
   useEffect(() => {
     dispatch({ type: 'list/getLists' }).then(lists => {
@@ -21,6 +22,7 @@ const Index = () => {
                 return newLists;
             });
             getLists(newLists);
+            changeLoading(false);
         }
     });
   }, []);
@@ -59,7 +61,10 @@ const Index = () => {
   };
 
   const onSearch = (value) => {
-    dispatch({ type: 'list/listAdd', payload: { title: value } });
+    changeLoading(true); 
+    dispatch({ type: 'list/listAdd', payload: { title: value } }).then(() => {
+        changeLoading(false); 
+    });
   };
       
   return (
@@ -67,7 +72,6 @@ const Index = () => {
       <h1>ToDo List</h1>
         <Search
         placeholder="请输入待办事项"
-        allowClear
         enterButton="添加"
         size="large"
         style={{ marginBottom: 20 }}
@@ -77,6 +81,7 @@ const Index = () => {
         size="large"
         header={<div>Header</div>}
         footer={<div>Footer</div>}
+        loading={isLoading}
         bordered
         dataSource={todoLists}
         renderItem={(item) => (
@@ -109,12 +114,25 @@ const Index = () => {
                 <span className={styles.opt}>
                   <span
                     className={styles.delete}
-                    onClick={() => dispatch({ 
-                        type: 'list/delete', 
-                        payload: { title: item.title }  
-                    })}
+                    onClick={() => {
+                        changeLoading(true); 
+                        dispatch({ 
+                            type: 'list/delete', 
+                            payload: { title: item.title }  
+                        }).then(() => {
+                            changeLoading(false);
+                        });
+                    }}
                   >
                     删除
+                  </span>
+                  <span
+                    className={styles.edit}
+                    onClick={() => {
+                        handleChangeIsEdit(item, false);
+                    }}
+                  >
+                    编辑
                   </span>
                 </span>
               </div>
