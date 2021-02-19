@@ -37,7 +37,7 @@ export default {
                         todoLists: response.data,
                     },
                 });
-                break;
+                return response.data;
             default:
                 Message.error('列表获取失败');
                 break;
