@@ -19,6 +19,12 @@ module.exports = [
     component: './List',
   },
   {
+    exact: true,
+    path: '/demo',
+    component: './Demo',
+  },
+
+  {
     component: './Exception/404',
   },
 ];
