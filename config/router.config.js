@@ -23,6 +23,12 @@ module.exports = [
     path: '/demo',
     component: './Demo',
   },
+  {
+    exact: true,
+    path: '/useLayoutEffect',
+    component: './UseLayoutEffect',
+  },
+
 
   {
     component: './Exception/404',

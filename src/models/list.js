@@ -1,4 +1,4 @@
-import { getLists, listDelete, listAdd } from '../services/List';
+import { getLists, listDelete, listAdd, listEdit } from '../services/List';
 import { Message } from 'antd';
 import { history } from 'umi';
 
@@ -48,6 +48,7 @@ export default {
       }
     },
     *listAdd({ payload }, { call, put }) {
+        console.log('payload', payload);
         const response = yield call(listAdd, payload);
         if (response.code === 0) {
             Message.success(response.msg);
@@ -57,6 +58,22 @@ export default {
             return;
         }
         Message.error(response.msg);
+    },
+    *listEdit({ payload }, { call, put }) {
+        if (!payload.title) {
+            Message.error('输入框不得为空！');
+        } else {
+            const response = yield call(listEdit, payload);
+            if (response.code === 0) {
+                Message.success(response.msg);
+                yield put({
+                    type: 'getLists',
+                });
+                return;
+            }
+            Message.success(response.msg);
+        }
+        
     },
     *delete({ payload }, { call, put }) {
         const response = yield call(listDelete, payload);

@@ -62,9 +62,11 @@ module.exports = {
         'react/require-default-props': 0,
         radix: 0,
         // 'no-shadow': 0,
-        'no-console': 'error',
+        // 'no-console': 'error',
         'jsx-a11y/control-has-associated-label': 'off',
         'no-shadow': 0,
         '@typescript-eslint/no-shadow': 0,
+        'react-hooks/rules-of-hooks': 'error', // 检查 Hook 的规则
+        'react-hooks/exhaustive-deps': 'warn' // 检查 effect 的依赖
     },
 };

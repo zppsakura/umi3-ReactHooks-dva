@@ -14,9 +14,16 @@ export async function listAdd(params) {
 }
 
 export async function listDelete(params) {
-    return request('/listDelete', {
-        method: 'GET',
-        params,
+    console.log('params', params);
+    return request(`/listDelete/${params.id}`, {
+        method: 'DELETE'
+    });
+}
+
+export async function listEdit(params) {
+    return request(`/listEdit/${params.id}`, {
+        method: 'PUT',
+        data: {title: params.title},
     });
 }
 

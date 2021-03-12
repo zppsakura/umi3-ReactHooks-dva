@@ -17,6 +17,8 @@ const Index = () => {
   const onFinish = (value) => {
     dispatch({ type: 'user/login', payload: { ...value } });
   };
+
+  
   return (
     <div className={styles.loginContent}>
       <Form

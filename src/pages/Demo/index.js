@@ -7,21 +7,28 @@ function Index() {
   // 声明一个新的叫做 “count” 的 state 变量
   const [count, setCount] = useState(0);
   const [num, setNum] = useState(1);
-  const [obj, setObj] = useState({name: '张三'});
+  const [number, setNumber] = useState(1);
+  const [obj, setObj] = useState({name: '张三', age: 23});
   const [arr, setArr] = useState([1,2,3]);
   const [func, setFunc] = useState(() => {
       return 1;
   });
 
   const inputEl = useRef('123'); // 获取Dom
-//   const save = useRef({value: '111'}); // 保存变量
+  const save = useRef({value: '111'}); // 保存变量
 
   useEffect(() => {
-    //   console.log(count);
+    //   console.log('num', num);
+    //   console.log('count', count);
+    // console.log('useEffect');
       return () => {
-        //   console.log('componentWillUnmont'); // 每次都先销毁之前的
+        //   console.log('componentWillUnmont', count); // 每次都先销毁之前的
       };
-  }, [count]);
+  }, []); 
+
+//   useEffect(() => {
+//       console.log('count', count);
+//   }, []);
 
   // 父组件
   const MyContext = createContext();
@@ -34,20 +41,19 @@ function Index() {
   };
 
   const res = useMemo(() => {
+    //   console.log('useMemo更新');
       return {   
           count, num
       };
-  }, [count]);
+  },[count]);
 
-  const callBack = useCallback(() => {
-    //   console.log('count', count);
+  const callback = useCallback(() => {
+    // console.log('count', count);
     return count;
   }, [count]);
   
   return (
     <div className={styles.demo}>
-
-
         <div className={styles.state}>
             <h1>useState</h1>
             <div>
@@ -57,8 +63,8 @@ function Index() {
                 </Button>
             </div>
             <div>
-                <h2>{obj.name}</h2>
-                <Button onClick={() => setObj({name: 'lisi'})}>改变对象</Button>
+                <h2>{obj.name}--{obj.age}</h2>
+                <Button onClick={() => setObj({...obj, name: 'lisi'})}>改变对象</Button>
             </div>
             <div>
                 <h2>{arr}</h2>
@@ -93,14 +99,13 @@ function Index() {
             <h1>useRef</h1>
             <Input 
                 type="text"
-                fullWidth
                 ref={inputEl}
             />
             <br />
             <br />
             <Button type="primary" onClick={() => {
                 // console.log('input', inputEl.current.state.value);
-                // save.current.value = inputEl.current.state.value;
+                save.current.value = inputEl.current.state.value;
                 // console.log('save', save);
             }}>获取ref</Button>
         </div>
@@ -109,6 +114,10 @@ function Index() {
         <div className={styles.memo}>
             <h1>useMemo</h1>
             <h2>状态=count{res.count} --- {res.num}</h2>
+            {/* <h2>状态=number{res2}</h2> */}
+            <Button onClick={() => {
+                setNumber(number + 1);
+            }}>change-number</Button>
             <Button onClick={() => {
                 setCount(count + 1);
             }}>change-count</Button>
@@ -121,7 +130,7 @@ function Index() {
 
         <div className={styles.callback}>
             <h1>useCallback</h1>
-            <h2>callBack: {callBack()}</h2>
+            <h2>callBack: {callback()}</h2>
             <h2>count状态=count: {count}</h2>
             <h2>num状态=num: {num}</h2>
             <Button onClick={() => {

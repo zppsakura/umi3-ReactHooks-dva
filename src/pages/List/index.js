@@ -9,6 +9,7 @@ const Index = () => {
   const dispatch = useDispatch();
   const [todoLists, getLists] = useState([]); // state中的值不能直接更改
   const [isLoading, changeLoading] = useState(true);
+  const [inputVal, changeInputVal] = useState('');
 
   useEffect(() => {
     dispatch({ type: 'list/getLists' }).then(lists => {
@@ -16,6 +17,7 @@ const Index = () => {
             const newLists = [];
             lists.map(item => {
                 newLists.push({
+                    id: item._id,
                     title: item.title,
                     isEdit: false,
                 });
@@ -36,6 +38,7 @@ const Index = () => {
     if (lists && lists.length > 0) {
         lists.map(item => {
             newLists.push({
+                id: item._id,
                 title: item.title,
                 isEdit: false,
             });
@@ -50,7 +53,7 @@ const Index = () => {
       // 深拷贝一个新的数组用于遍历修改值；若直接遍历todolists并更改，将不生效。
       const list = JSON.parse(JSON.stringify(todoLists));
       list.map(item => {
-          if (item.title === info.title) {
+          if (item.id === info.id) {
               item.isEdit = state;
           } else {
               item.isEdit = false;
@@ -66,6 +69,13 @@ const Index = () => {
         changeLoading(false); 
     });
   };
+
+  const handleSure = item => {
+      dispatch({ type: 'list/listEdit', payload: { title: inputVal, id: item.id } }).then(() => {
+        handleChangeIsEdit(item, false)
+      })
+
+  }
       
   return (
     <div className={styles.listContent}>
@@ -88,7 +98,7 @@ const Index = () => {
           <List.Item>
             {item.isEdit ? (
               <div className={styles.editBox}>
-                <Input value={item.title} />
+                <Input defaultValue={item.title} onChange={(e) => {changeInputVal(e.target.value)}}/>
                 <div className={styles.opt}>
                   <span
                     className={styles.delete}
@@ -101,7 +111,7 @@ const Index = () => {
                   <span
                     className={styles.edit}
                     onClick={() => {
-                      handleChangeIsEdit(item, false);
+                        handleSure(item)
                     }}
                   >
                     确定
@@ -118,7 +128,7 @@ const Index = () => {
                         changeLoading(true); 
                         dispatch({ 
                             type: 'list/delete', 
-                            payload: { title: item.title }  
+                            payload: { id: item.id }  
                         }).then(() => {
                             changeLoading(false);
                         });
@@ -129,7 +139,7 @@ const Index = () => {
                   <span
                     className={styles.edit}
                     onClick={() => {
-                        handleChangeIsEdit(item, false);
+                        handleChangeIsEdit(item, true);
                     }}
                   >
                     编辑
